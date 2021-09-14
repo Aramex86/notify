@@ -51,11 +51,13 @@ export function AppForm({ handleOk }: IForm) {
       onFinish={onFinish}
       name="nest-messages"
       validateMessages={validateMessages}
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <StyledFormItem
         label="Category"
         name={["category"]}
         rules={[{ required: true }]}
+        labelCol={{ span: 24 }}
       >
         <StyledSelect>
           <Select.Option value="work">Work</Select.Option>
@@ -67,13 +69,23 @@ export function AppForm({ handleOk }: IForm) {
         name={["title"]}
         label="Title"
         rules={[{ required: true }]}
+        labelCol={{ span: 24 }}
       >
         <StyledInput />
       </StyledFormItem>
-      <StyledFormItem name={["Description"]} label="Description">
+      <StyledFormItem
+        name={["Description"]}
+        label="Description"
+        labelCol={{ span: 24 }}
+        rules={[{ required: true }]}
+      >
         <StyledInput.TextArea />
       </StyledFormItem>
-      <StyledFormItem name={["Date"]} rules={[{ required: true }]}>
+      <StyledFormItem
+        name={["Date"]}
+        rules={[{ required: true }]}
+        labelCol={{ span: 24 }}
+      >
         <DatePicker onChange={onChange} />
       </StyledFormItem>
       <AddTask type="primary" htmlType="submit">
