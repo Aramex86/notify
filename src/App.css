@@ -1,0 +1,13 @@
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: #a6d5ff;
+}
+
+.ant-menu-light .ant-menu-item:hover {
+  color: #ffff;
+}
+
+.ant-btn:hover,
+.ant-btn:focus,
+.ant-btn:active {
+  background: #33a1ff;
+}
