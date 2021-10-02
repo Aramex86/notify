@@ -3,45 +3,45 @@ import { AddTask } from "components/Button/Button.style";
 import { StyledFormItem, StyledInput, StyledSelect } from "./Form.style";
 import { DatePicker } from "antd";
 import { useState } from "react";
+import { useAppDispatch } from "redux-toolkit/hooks";
+import { addWorkTask } from "redux-toolkit/slices/WorkSlice";
+import { addPersonalTask } from "redux-toolkit/slices/PersonalSlice";
 
 interface IForm {
   handleOk: () => void;
 }
 
 interface Values {
+  id: string;
   title: string;
   category: string;
-  description: string;
-  date: string;
+  summary: string;
+  Date: string;
 }
 
 export function AppForm({ handleOk }: IForm) {
   const [date, setDate] = useState<string>("");
+  const dispatch = useAppDispatch();
   const validateMessages = {
     required: "${label} is required!",
-    types: {
-      email: "${label} is not a valid email!",
-      number: "${label} is not a valid number!",
-    },
-    number: {
-      range: "${label} must be between ${min} and ${max}",
-    },
   };
 
   const [form] = Form.useForm();
   const onFinish = (values: Values) => {
-    console.log("values", values.date);
-    const value = {
+    const value: Values = {
       ...values,
-      date: date,
+      id: String(Date.now()),
+      Date: date,
     };
     console.log("VALUE", value);
-    form.resetFields();
     handleOk();
+    if (value["category"] === "work") return dispatch(addWorkTask(value));
+    if (value["category"] === "personal")
+      return dispatch(addPersonalTask(value));
+    form.resetFields();
   };
 
   function onChange(date: any, dateString: string) {
-    console.log(date, dateString);
     setDate(dateString);
   }
 
@@ -54,7 +54,7 @@ export function AppForm({ handleOk }: IForm) {
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <StyledFormItem
-        label="Category"
+        label="category"
         name={["category"]}
         rules={[{ required: true }]}
         labelCol={{ span: 24 }}
@@ -68,14 +68,14 @@ export function AppForm({ handleOk }: IForm) {
       <StyledFormItem
         name={["title"]}
         label="Title"
-        rules={[{ required: true }]}
+        rules={[{ required: true }, { max: 150, message: "Must be max 150" }]}
         labelCol={{ span: 24 }}
       >
         <StyledInput />
       </StyledFormItem>
       <StyledFormItem
-        name={["Description"]}
-        label="Description"
+        name={["summary"]}
+        label="Summary"
         labelCol={{ span: 24 }}
         rules={[{ required: true }]}
       >

@@ -6,6 +6,7 @@ import { Colors } from "enums/colors";
 import { useState } from "react";
 import { useAppSelector } from "redux-toolkit/hooks";
 import { AppModal } from "components/Modal/AppModal";
+import { AppForm } from "components/Form/AppForm";
 
 export function Work() {
   const {
@@ -30,14 +31,17 @@ export function Work() {
 
   return (
     <Box position="relative" width="100%">
-      <Box width="100%" display="flex" padding="10px 10px">
+      <Box width="100%" display="flex" padding="10px 10px" flexWrap="wrap">
         {work.map((el) => (
           <Card
             key={el.id}
+            id={el.id}
             title={el.title}
             category={el.category}
             summary={el.summary}
-            date={el.date}
+            Date={el.Date}
+            done={el.done}
+            link="work"
           />
         ))}
       </Box>
@@ -53,7 +57,11 @@ export function Work() {
         handleOk={handleOk}
         handleCancel={handleCancel}
         isModalVisible={isModalVisible}
-      />
+        title="Add Work Task"
+        // data={<AppForm handleOk={handleOk} />}
+      >
+        <AppForm handleOk={handleCancel} />
+      </AppModal>
     </Box>
   );
 }

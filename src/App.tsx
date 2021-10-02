@@ -32,7 +32,9 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/work" component={Work} />
+          <Route exact path="/work/:cardId" component={Work} />
           <Route exact path="/personal" component={Personel} />
+          <Route exact path="/personal/:cardId" component={Personel} />
           <Route exact path="/other" component={Other} />
         </Switch>
       </CustomLayout>

@@ -1,7 +1,9 @@
-export interface WorkCard {
+export interface CardType {
   id: string;
   category: string;
   title: string;
   summary: string;
-  date: string;
+  Date: string;
+  done?: boolean;
+  link?: string;
 }

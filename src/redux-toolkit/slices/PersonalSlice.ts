@@ -1,35 +1,61 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { CardType } from "Types/types";
 
-export interface CounterState3 {
-  value: number;
+export interface PersonalState {
+  personal: CardType[];
 }
 
-const initialState: CounterState3 = {
-  value: 0,
+const initialState: PersonalState = {
+  personal: [
+    {
+      id: `${Math.floor(Math.random() * 100)}`,
+      category: "Personal",
+      title: "Go to the Grocery",
+      summary: "By somethisg for dinner",
+      Date: "2021-09-13",
+      done: false,
+    },
+    {
+      id: `${Math.floor(Math.random() * 100)}`,
+      category: "Personal",
+      title: "Make Task 1568",
+      summary: "Do the stuff 1",
+      Date: "2021-09-14",
+      done: false,
+    },
+    {
+      id: `${Math.floor(Math.random() * 100)}`,
+      category: "Personal",
+      title: "Make Task 1530",
+      summary: "Do the stuff 2",
+      Date: "2021-09-15",
+      done: false,
+    },
+  ],
 };
 
-export const counter2Slice = createSlice({
-  name: "counter2",
+export const personalSlice = createSlice({
+  name: "personal",
   initialState,
   reducers: {
-    increment3: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1;
+    addPersonalTask: (state, action: PayloadAction<CardType>) => {
+      state.personal = [...state.personal, action.payload];
     },
-    decrement3: (state) => {
-      state.value -= 1;
+    donePersonalTask: (state, action: PayloadAction<string>) => {
+      state.personal.find((el) => {
+        if (el.id === action.payload) {
+          el["done"] = true;
+        }
+      });
     },
-    incrementByAmount3: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
+    deletePersonalTask: (state, action: PayloadAction<string>) => {
+      state.personal = state.personal.filter((el) => el.id !== action.payload);
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { increment3, decrement3, incrementByAmount3 } =
-  counter2Slice.actions;
+export const { addPersonalTask, donePersonalTask, deletePersonalTask } =
+  personalSlice.actions;
 
-export default counter2Slice.reducer;
+export const personalReducer = personalSlice.reducer;
