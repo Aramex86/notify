@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { workReducer, personalReducer } from "./slices";
+import { workReducer, personalReducer, otherReducer } from "./slices";
 
 export const store = configureStore({
   reducer: {
     work: workReducer,
     personal: personalReducer,
+    other: otherReducer,
   },
 });
 

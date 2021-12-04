@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useAppDispatch } from "redux-toolkit/hooks";
 import { addWorkTask } from "redux-toolkit/slices/WorkSlice";
 import { addPersonalTask } from "redux-toolkit/slices/PersonalSlice";
+import { addOtherTask } from "redux-toolkit/slices";
 
 interface IForm {
   handleOk: () => void;
@@ -38,6 +39,7 @@ export function AppForm({ handleOk }: IForm) {
     if (value["category"] === "work") return dispatch(addWorkTask(value));
     if (value["category"] === "personal")
       return dispatch(addPersonalTask(value));
+    if (value["category"] === "other") return dispatch(addOtherTask(value));
     form.resetFields();
   };
 

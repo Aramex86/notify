@@ -6,8 +6,10 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import {
+  deleteOtherTask,
   deletePersonalTask,
   deleteWorkTask,
+  doneOtherTask,
   donePersonalTask,
   doneWorkTask,
 } from "redux-toolkit/slices";
@@ -59,6 +61,7 @@ export function Card({
   const handleDone = (id: string) => {
     dispatch(doneWorkTask(id));
     dispatch(donePersonalTask(id));
+    dispatch(doneOtherTask(id));
 
     handleOk();
   };
@@ -66,10 +69,9 @@ export function Card({
   const handleDelete = (id: string) => {
     dispatch(deleteWorkTask(id));
     dispatch(deletePersonalTask(id));
+    dispatch(deleteOtherTask(id));
   };
 
-  // console.log(link);
-  console.log(id);
   return (
     <Box margin="5px">
       <Link to={`/${link}/${id}`}>

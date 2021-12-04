@@ -36,6 +36,7 @@ function App() {
           <Route exact path="/personal" component={Personel} />
           <Route exact path="/personal/:cardId" component={Personel} />
           <Route exact path="/other" component={Other} />
+          <Route exact path="/other/:cardId" component={Other} />
         </Switch>
       </CustomLayout>
     </CustomLayout>

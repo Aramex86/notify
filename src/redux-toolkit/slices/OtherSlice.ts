@@ -1,35 +1,61 @@
+import { CardType } from "./../../Types/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface CounterState2 {
-  value: number;
+export interface OtherState {
+  other: CardType[];
 }
 
-const initialState: CounterState2 = {
-  value: 0,
+const initialState: OtherState = {
+  other: [
+    {
+      id: `${Math.floor(Math.random() * 100)}`,
+      category: "Other",
+      title: "Go to the Grocery",
+      summary: "By somethisg for dinner",
+      Date: "2021-09-13",
+      done: false,
+    },
+    {
+      id: `${Math.floor(Math.random() * 100)}`,
+      category: "Other",
+      title: "Make Task 1568",
+      summary: "Do the stuff 1",
+      Date: "2021-09-14",
+      done: false,
+    },
+    {
+      id: `${Math.floor(Math.random() * 100)}`,
+      category: "Other",
+      title: "Make Task 1530",
+      summary: "Do the stuff 2",
+      Date: "2021-09-15",
+      done: false,
+    },
+  ],
 };
 
-export const counter3Slice = createSlice({
-  name: "counter3",
+export const otherSlice = createSlice({
+  name: "other",
   initialState,
   reducers: {
-    increment2: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1;
+    addOtherTask: (state, action: PayloadAction<CardType>) => {
+      state.other = [...state.other, action.payload];
     },
-    decrement2: (state) => {
-      state.value -= 1;
+    doneOtherTask: (state, action: PayloadAction<string>) => {
+      state.other.find((el) => {
+        if (el.id === action.payload) {
+          return (el["done"] = true);
+        }
+      });
     },
-    incrementByAmount2: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
+    deleteOtherTask: (state, action: PayloadAction<string>) => {
+      state.other = state.other.filter((el) => el.id !== action.payload);
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { increment2, decrement2, incrementByAmount2 } =
-  counter3Slice.actions;
+export const { addOtherTask, doneOtherTask, deleteOtherTask } =
+  otherSlice.actions;
 
-export default counter3Slice.reducer;
+export const otherReducer = otherSlice.reducer;
